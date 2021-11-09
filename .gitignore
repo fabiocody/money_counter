@@ -1,6 +1,6 @@
 
-# Created by https://www.toptal.com/developers/gitignore/api/swift,cocoapods,swiftpackagemanager,swiftpm,xcode,visualstudiocode,windows,linux,macos,vim,sublimetext
-# Edit at https://www.toptal.com/developers/gitignore?templates=swift,cocoapods,swiftpackagemanager,swiftpm,xcode,visualstudiocode,windows,linux,macos,vim,sublimetext
+# Created by https://www.toptal.com/developers/gitignore/api/swift,cocoapods,xcode,visualstudiocode,windows,linux,macos,vim,sublimetext
+# Edit at https://www.toptal.com/developers/gitignore?templates=swift,cocoapods,xcode,visualstudiocode,windows,linux,macos,vim,sublimetext
 
 ### CocoaPods ###
 ## CocoaPods GitIgnore Template
@@ -32,8 +32,7 @@ Pods/
 .LSOverride
 
 # Icon must end with two \r
-Icon
-
+Icon
 
 # Thumbnails
 ._*
@@ -171,15 +170,6 @@ fastlane/test_output
 
 iOSInjectionProject/
 
-### SwiftPackageManager ###
-Packages
-xcuserdata
-*.xcodeproj
-
-
-### SwiftPM ###
-
-
 ### Vim ###
 # Swap
 [._]*.s[a-v][a-z]
@@ -262,4 +252,4 @@ $RECYCLE.BIN/
 !*.xcworkspace/contents.xcworkspacedata
 **/xcshareddata/WorkspaceSettings.xcsettings
 
-# End of https://www.toptal.com/developers/gitignore/api/swift,cocoapods,swiftpackagemanager,swiftpm,xcode,visualstudiocode,windows,linux,macos,vim,sublimetext
+# End of https://www.toptal.com/developers/gitignore/api/swift,cocoapods,xcode,visualstudiocode,windows,linux,macos,vim,sublimetext
