@@ -88,6 +88,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E5C8D7C3273DD1BC00383D0E /* Build configuration list for PBXNativeTarget "MoneyCounter" */;
 			buildPhases = (
+				E5263EA8274013A400E33399 /* Increment build */,
 				E5C8D7B0273DD1BB00383D0E /* Sources */,
 				E5C8D7B1273DD1BB00383D0E /* Frameworks */,
 				E5C8D7B2273DD1BB00383D0E /* Resources */,
@@ -145,6 +146,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E5263EA8274013A400E33399 /* Increment build */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Increment build";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$(git rev-list --all --count)\n#/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\nxcrun agvtool new-version -all $buildNumber\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E5C8D7B0273DD1BB00383D0E /* Sources */ = {
@@ -286,7 +308,7 @@
 				CODE_SIGN_ENTITLEMENTS = MoneyCounter/MoneyCounter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"MoneyCounter/Preview Content\"";
 				DEVELOPMENT_TEAM = 28D4MN4WHR;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -297,11 +319,12 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = it.fabiocodiglioni.MoneyCounter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "";
 			};
 			name = Debug;
 		};
@@ -313,7 +336,7 @@
 				CODE_SIGN_ENTITLEMENTS = MoneyCounter/MoneyCounter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"MoneyCounter/Preview Content\"";
 				DEVELOPMENT_TEAM = 28D4MN4WHR;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -324,11 +347,12 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = it.fabiocodiglioni.MoneyCounter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "";
 			};
 			name = Release;
 		};

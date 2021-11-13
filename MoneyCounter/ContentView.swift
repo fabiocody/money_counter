@@ -11,7 +11,7 @@ import Combine
 struct ContentView: View {
     @ObservedObject private var appState = AppState.shared
     @State private var show = true
-        
+    
     var body: some View {
         Form {
             Text("MoneyCounter")
