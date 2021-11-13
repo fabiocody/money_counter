@@ -40,6 +40,7 @@ struct ContentView: View {
             }
         }
         .padding()
+        .frame(maxWidth: 300, maxHeight: 400)
     }
     
     private func reset() {

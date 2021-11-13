@@ -30,7 +30,8 @@ struct MoneyValue: View, Identifiable {
             let count = Double(self.text) ?? 0.0
             self.appState.computeTotal(value: self.value, count: count)
         })
-        .onReceive(self.appState.$needToReset) { needToReset in
+        .textFieldStyle(.roundedBorder)
+        .onReceive(self.appState.$needToReset) { _ in
             self.text = ""
         }
     }
@@ -38,6 +39,10 @@ struct MoneyValue: View, Identifiable {
 
 struct MoneyValue_Previews: PreviewProvider {
     static var previews: some View {
-        MoneyValue(value: 42)
+        Form {
+            MoneyValue(value: 42)
+        }
+        .padding()
+        .frame(maxWidth: 300)
     }
 }
