@@ -88,9 +88,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E5C8D7C3273DD1BC00383D0E /* Build configuration list for PBXNativeTarget "MoneyCounter" */;
 			buildPhases = (
-				E5263EA8274013A400E33399 /* Increment build */,
 				E5C8D7B0273DD1BB00383D0E /* Sources */,
 				E5C8D7B1273DD1BB00383D0E /* Frameworks */,
+				E5263EA8274013A400E33399 /* Increment build */,
 				E5C8D7B2273DD1BB00383D0E /* Resources */,
 			);
 			buildRules = (
@@ -308,7 +308,7 @@
 				CODE_SIGN_ENTITLEMENTS = MoneyCounter/MoneyCounter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"MoneyCounter/Preview Content\"";
 				DEVELOPMENT_TEAM = 28D4MN4WHR;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -336,7 +336,7 @@
 				CODE_SIGN_ENTITLEMENTS = MoneyCounter/MoneyCounter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"MoneyCounter/Preview Content\"";
 				DEVELOPMENT_TEAM = 28D4MN4WHR;
 				ENABLE_HARDENED_RUNTIME = YES;
