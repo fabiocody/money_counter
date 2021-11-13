@@ -14,20 +14,23 @@ struct ContentView: View {
         
     var body: some View {
         Form {
+            Text("MoneyCounter")
+                .font(.title)
+                .padding()
             Section {
                 ForEach(AppState.doubleValues, id: \.self) { value in
                     MoneyValue(value: value)
                 }
             }
+            Divider()
+                .padding(.vertical, 10)
             Section {
                 HStack {
-                    Text("Total")
                     Spacer()
                     Text(currencyFormatter.string(for: self.appState.total)!)
-
+                        .font(.title2)
                 }
-                .font(.title2)
-                .padding(.top, 20)
+                .padding(.top, 0)
             }
             Section {
                 HStack {
@@ -40,7 +43,7 @@ struct ContentView: View {
             }
         }
         .padding()
-        .frame(maxWidth: 300, maxHeight: 400)
+        .frame(maxWidth: 300, maxHeight: 440)
     }
     
     private func reset() {
