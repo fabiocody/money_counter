@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:money_counter/views/main_view.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
-void main() => runApp(const MoneyCounterApp());
+void main() async {
+  await Hive.initFlutter();
+  runApp(const MoneyCounterApp());
+}
 
 class MoneyCounterApp extends StatelessWidget {
   const MoneyCounterApp({super.key});
