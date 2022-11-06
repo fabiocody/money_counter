@@ -32,7 +32,7 @@ class _CurrencyInputState extends State<CurrencyInput> {
   @override
   void initState() {
     super.initState();
-    _textController = TextEditingController();
+    _textController = TextEditingController(text: widget.initialText);
   }
 
   @override

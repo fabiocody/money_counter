@@ -67,6 +67,7 @@ class _MainViewState extends State<MainView> {
                                     initialText: d.text,
                                     allowDecimal: d.value == 1,
                                     onChanged: (text) => setState(() => d.text = text),
+                                    textInputAction: TextInputAction.next,
                                   ),
                                 ),
                               )
