@@ -25,6 +25,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="money_counter">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <meta name="theme-color" content="#009688">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
@@ -38,8 +39,14 @@
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
+  <script src="splash/splash.js"></script>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+  <link rel="stylesheet" type="text/css" href="splash/style.css">
 </head>
 <body>
+  <div class="center" id="splash" style="transform: scale(150%)">
+    <img class="center" src="splash/img/oval.svg"  alt=""/>
+  </div>
   <script>
     window.addEventListener('load', function(ev) {
       // Download main.dart.js

@@ -7,8 +7,7 @@ class MoneyCounterModel {
   final List<Denomination> denominations;
 
   MoneyCounterModel([List<Denomination>? denominations])
-      : denominations = denominations ??
-            [500, 200, 100, 50, 20, 10, 5, 1].map((v) => Denomination(value: v)).toList(growable: false);
+      : denominations = denominations ?? [500, 200, 100, 50, 20, 10, 5, 1].map((v) => Denomination(value: v)).toList();
 
   double get total => denominations.map((d) => d.value * d.count).reduce((value, element) => value + element);
 
@@ -29,5 +28,10 @@ class MoneyCounterModel {
 
   Future<void> save() async {
     return GenericStorage().put('denominations', denominations);
+  }
+
+  void setFrom(MoneyCounterModel model) {
+    denominations.clear();
+    denominations.addAll(model.denominations);
   }
 }
