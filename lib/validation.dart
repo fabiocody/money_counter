@@ -25,7 +25,7 @@ String? numberValidator(String text) {
 }
 
 String? decimalValidator(String text) {
-  const pattern = r'^[0-9]+(\.[0-9]+)?$';
+  const pattern = r'^[0-9]+((\.|,)[0-9]+)?$';
   return _patternValidator(pattern, 'Number not valid', text);
 }
 

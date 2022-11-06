@@ -1,8 +1,10 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:money_counter/model/model.dart';
 import 'package:money_counter/service/cron_service.dart';
 import 'package:money_counter/utils.dart';
-import 'package:money_counter/validation.dart';
 import 'package:money_counter/views/currency_input.dart';
 
 class MainView extends StatefulWidget {
@@ -51,55 +53,52 @@ class _MainViewState extends State<MainView> {
                   child: Center(
                     child: ConstrainedBox(
                       constraints: const BoxConstraints(maxWidth: 360),
-                      child: SafeArea(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            const SizedBox(height: 8),
-                            ..._model.denominations
-                                .map(
-                                  (d) => Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                                    child: CurrencyInput(
-                                      labelText: d.label,
-                                      initialText: d.text,
-                                      validators: [
-                                        optionalValidator(d.value == 1 ? decimalValidator : numberValidator),
-                                      ],
-                                      onChanged: (text) => setState(() => d.text = text),
-                                    ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          const SizedBox(height: 8),
+                          ..._model.denominations
+                              .map(
+                                (d) => Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                  child: CurrencyInput(
+                                    labelText: d.label,
+                                    initialText: d.text,
+                                    allowDecimal: d.value == 1,
+                                    onChanged: (text) => setState(() => d.text = text),
                                   ),
-                                )
-                                .toList(growable: false),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                                    child: ElevatedButton(
-                                      onPressed: () => setState(_model.reset),
-                                      child: const Text('RESET'),
+                                ),
+                              )
+                              .toList(growable: false),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                                  child: ElevatedButton(
+                                    onPressed: () => setState(_model.reset),
+                                    child: const Text('RESET'),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16),
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      currencyFormatter.format(_model.total),
+                                      style: TextStyle(fontSize: Theme.of(context).textTheme.titleLarge!.fontSize),
                                     ),
                                   ),
                                 ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(16),
-                                    child: Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        currencyFormatter.format(_model.total),
-                                        style: TextStyle(fontSize: Theme.of(context).textTheme.titleLarge!.fontSize),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                              ),
+                            ],
+                          ),
+                          if (!kIsWeb && (Platform.isIOS || Platform.isAndroid)) const SizedBox(height: 24),
+                        ],
                       ),
                     ),
                   ),

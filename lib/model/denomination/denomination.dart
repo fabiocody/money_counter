@@ -10,7 +10,7 @@ class Denomination {
 
   Denomination({required this.value, this.text = ''});
 
-  double get count => double.tryParse(text) ?? 0;
+  double get count => double.tryParse(text.replaceAll(',', '.')) ?? 0;
 
   String get label => value == 1 ? 'Coins' : denominationFormatter.format(value);
 

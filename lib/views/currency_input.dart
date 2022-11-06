@@ -8,7 +8,7 @@ class CurrencyInput extends StatefulWidget {
   final String? labelText;
   final String? initialText;
   final TextInputAction? textInputAction;
-  final List<Validator> validators;
+  final bool allowDecimal;
 
   const CurrencyInput({
     super.key,
@@ -17,7 +17,7 @@ class CurrencyInput extends StatefulWidget {
     this.labelText,
     this.initialText,
     this.textInputAction,
-    this.validators = const [],
+    this.allowDecimal = true,
   });
 
   @override
@@ -25,6 +25,7 @@ class CurrencyInput extends StatefulWidget {
 }
 
 class _CurrencyInputState extends State<CurrencyInput> {
+  late final _validators = [optionalValidator(widget.allowDecimal ? decimalValidator : numberValidator)];
   late TextEditingController _textController;
   bool _touched = false;
 
@@ -55,16 +56,20 @@ class _CurrencyInputState extends State<CurrencyInput> {
       controller: _textController,
       autocorrect: false,
       enableSuggestions: false,
-      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+      keyboardType: TextInputType.numberWithOptions(decimal: widget.allowDecimal),
       textInputAction: widget.textInputAction,
       decoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
         labelText: widget.labelText,
-        errorText: _touched ? getErrorText(widget.validators, _textController.text) : null,
+        errorText: _touched ? getErrorText(_validators, _textController.text) : null,
       ),
       onSubmitted: widget.onSubmitted,
       onChanged: _onChanged,
-      inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9]|\.'))],
+      inputFormatters: [
+        widget.allowDecimal
+            ? FilteringTextInputFormatter.allow(RegExp(r'[0-9]|\.|,'))
+            : FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+      ],
     );
   }
 
