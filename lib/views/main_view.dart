@@ -40,7 +40,10 @@ class _MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('MoneyCounter'), backgroundColor: Colors.teal),
+      appBar: AppBar(
+        title: Text('MoneyCounter', style: TextStyle(color: Theme.of(context).colorScheme.onPrimary)),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+      ),
       body: GestureDetector(
         onTap: () {
           unfocus(context);
@@ -56,30 +59,26 @@ class _MainViewState extends State<MainView> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     const SizedBox(height: 8),
-                    ..._model.denominations
-                        .map(
-                          (d) => Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                            child: CurrencyInput(
-                              labelText: d.label,
-                              initialText: d.text,
-                              allowDecimal: d.value == 1,
-                              onChanged: (text) => setState(() => d.text = text),
-                              textInputAction: TextInputAction.next,
-                            ),
-                          ),
-                        )
-                        .toList(growable: false),
+                    ..._model.denominations.map(
+                      (d) => Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        child: CurrencyInput(
+                          labelText: d.label,
+                          initialText: d.text,
+                          allowDecimal: d.value == 1,
+                          onChanged: (text) => setState(() => d.text = text),
+                          textInputAction: TextInputAction.next,
+                        ),
+                      ),
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                            child: ElevatedButton(
-                              onPressed: () => setState(_model.reset),
-                              child: const Text('RESET'),
-                            ),
+                        Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: FilledButton(
+                            onPressed: () => setState(_model.reset),
+                            child: const Text('RESET'),
                           ),
                         ),
                         Expanded(

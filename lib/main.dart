@@ -19,19 +19,17 @@ class MoneyCounterApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'MoneyCounter',
-      theme: ThemeData(primarySwatch: Colors.teal),
-      darkTheme: ThemeData(primarySwatch: Colors.teal, brightness: Brightness.dark),
+      theme: ThemeData(colorSchemeSeed: Colors.teal),
+      darkTheme: ThemeData(colorSchemeSeed: Colors.teal, brightness: Brightness.dark),
       themeMode: ThemeMode.system,
-      builder: (context, child) => ResponsiveWrapper.builder(
-        child,
-        minWidth: 360,
-        defaultScale: true,
+      builder: (context, child) => ResponsiveBreakpoints.builder(
+        child: child ?? const SizedBox.shrink(),
         breakpoints: const [
-          ResponsiveBreakpoint.resize(480, name: MOBILE),
-          ResponsiveBreakpoint.autoScale(800, name: TABLET),
-          ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+          Breakpoint(start: 0, end: 480, name: MOBILE),
+          Breakpoint(start: 481, end: 800, name: TABLET),
+          Breakpoint(start: 801, end: 1000, name: DESKTOP),
+          Breakpoint(start: 1001, end: double.infinity, name: '4K'),
         ],
-        background: Container(color: Theme.of(context).canvasColor),
       ),
       home: const MainView(),
     );
