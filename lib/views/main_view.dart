@@ -3,52 +3,45 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:money_counter/model/model.dart';
-import 'package:money_counter/service/cron_service.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
+import 'package:money_counter/service/denominations_provider.dart';
 import 'package:money_counter/utils.dart';
 import 'package:money_counter/views/currency_input.dart';
 
-class MainView extends StatefulWidget {
+class MainView extends ConsumerStatefulWidget {
   const MainView({super.key});
 
   @override
-  State<MainView> createState() => _MainViewState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _MainViewState();
 }
 
-class _MainViewState extends State<MainView> {
-  final MoneyCounterModel _model = MoneyCounterModel();
-  CronJob? _cronJob;
-
+class _MainViewState extends ConsumerState<MainView> {
   @override
   void initState() {
     super.initState();
-    MoneyCounterModel.load().then(
-      (model) => setState(() {
-        _model.setFrom(model);
-        _cronJob = CronService().schedule(const Duration(seconds: 5), () => _model.save());
-        FlutterNativeSplash.remove();
-      }),
-    );
+    Future.delayed(const Duration(milliseconds: 1), () async {
+      ref.read(denominationsProvider.notifier).load();
+      FlutterNativeSplash.remove();
+    });
   }
 
   @override
   void dispose() {
     super.dispose();
-    if (_cronJob != null) CronService().cancel(_cronJob!);
+    Hive.close();
   }
 
   @override
   Widget build(BuildContext context) {
+    final denominations = ref.watch(denominationsProvider);
     return Scaffold(
       appBar: AppBar(
         title: Text('MoneyCounter', style: TextStyle(color: Theme.of(context).colorScheme.onPrimary)),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: GestureDetector(
-        onTap: () {
-          unfocus(context);
-          _model.save();
-        },
+        onTap: () => unfocus(context),
         child: Center(
           child: SingleChildScrollView(
             child: Center(
@@ -59,14 +52,14 @@ class _MainViewState extends State<MainView> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     const SizedBox(height: 8),
-                    ..._model.denominations.map(
+                    ...denominations.map(
                       (d) => Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                         child: CurrencyInput(
                           labelText: d.label,
                           initialText: d.text,
                           allowDecimal: d.value == 1,
-                          onChanged: (text) => setState(() => d.text = text),
+                          onChanged: (text) => ref.read(denominationsProvider.notifier).set(d.value, text),
                           textInputAction: TextInputAction.next,
                         ),
                       ),
@@ -77,7 +70,7 @@ class _MainViewState extends State<MainView> {
                         Padding(
                           padding: const EdgeInsets.all(16),
                           child: FilledButton(
-                            onPressed: () => setState(_model.reset),
+                            onPressed: () => ref.read(denominationsProvider.notifier).reset(),
                             child: const Text('RESET'),
                           ),
                         ),
@@ -87,7 +80,7 @@ class _MainViewState extends State<MainView> {
                             child: Align(
                               alignment: Alignment.centerRight,
                               child: Text(
-                                currencyFormatter.format(_model.total),
+                                currencyFormatter.format(ref.watch(totalProvider)),
                                 style: TextStyle(fontSize: Theme.of(context).textTheme.titleLarge!.fontSize),
                               ),
                             ),
