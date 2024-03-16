@@ -10,6 +10,8 @@
 include: package:flutter_lints/flutter.yaml
 
 analyzer:
+  plugins:
+    - custom_lint
   errors:
     prefer_single_quotes: warning
     require_trailing_commas: warning
